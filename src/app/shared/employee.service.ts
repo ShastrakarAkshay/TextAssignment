@@ -16,7 +16,8 @@ export class EmployeeService {
       gender: 'male',
       designation: "UI Developer",
       address: "Pune"
-    }, {
+    }, 
+    {
       id: 2,
       empId: 26791,
       firstName: 'Ram',
@@ -85,6 +86,6 @@ export class EmployeeService {
   }
 
   getEmployeeById(id: string){
-    return this.firestore.collection('EmployeeDB').doc('2xipMT8rPffMyFPkFt7S').valueChanges();
+    return this.firestore.collection('EmployeeDB').doc(id).snapshotChanges();
   }
 }

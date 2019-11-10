@@ -30,7 +30,7 @@
         <tbody>
             <tr *ngFor="let emp of empData">
                 <td>{{emp.empId}}</td>
-                <td><a routerLink="empDetails" class="empNameLink">{{emp.firstName}} {{emp.lastName}}</a></td>
+                <td><a routerLink="empDetails/{{emp.id}}" class="empNameLink">{{emp.firstName}} {{emp.lastName}}</a></td>
                 <td>{{emp.designation}}</td>
                 <td class="text-right">
                     <a class="btn text-info pointer" (click)="editEmployee(emp)" data-toggle="modal" data-dismiss="modal" matTooltip="Update Employee"
