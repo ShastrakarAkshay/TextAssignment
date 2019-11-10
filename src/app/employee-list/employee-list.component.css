@@ -1,0 +1,12 @@
+.pointer{
+    cursor: pointer;
+}
+
+i:hover, .empNameLink:hover {
+    color: #17a2ba;
+}
+
+.empNameLink{
+    text-decoration: none;
+    color: black;
+}

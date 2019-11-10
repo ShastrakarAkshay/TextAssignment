@@ -1,0 +1,150 @@
+<section>
+    <div class="row">
+        <div class="col-sm-1">
+            <button class="btn btn-transperent" (click)="goBack()" matTooltip="Go Back" matTooltipPosition="left"><i class="fa fa-arrow-circle-o-left"
+                    style="font-size:30px"></i></button>
+        </div>
+        <div class="col-sm-11 text-center">
+            <h5>Employee List</h5>
+        </div>
+    </div>
+    <hr>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <button class="btn btn-info" data-toggle="modal" data-target="#addEmpModal" (click)="addEmployee()">Add
+                Employee</button>
+        </div>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" placeholder="Filter By Employee Name" (keyup)="filterByName(searchKey.value)" #searchKey>
+        </div>
+    </div>
+
+    <table class="table table-hover mt-3">
+        <thead class="bg-light">
+            <th>Id</th>
+            <th>Name</th>
+            <th>Designation</th>
+            <th></th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let emp of empData">
+                <td>{{emp.empId}}</td>
+                <td><a routerLink="empDetails" class="empNameLink">{{emp.firstName}} {{emp.lastName}}</a></td>
+                <td>{{emp.designation}}</td>
+                <td class="text-right">
+                    <a class="btn text-info pointer" (click)="editEmployee(emp)" data-toggle="modal" data-dismiss="modal" matTooltip="Update Employee"
+                        data-target="#addEmpModal"><i class="fa fa-edit"></i></a>
+                    <a class="btn text-danger pointer" (click)="deleteEmployee(emp)" matTooltip="Delete Employee"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<div id="addEmpModal" class="modal fade" role="dialog" #empFormModal>
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{formHeader}}</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formGroup" (ngSubmit)="formGroup.valid">
+                    <input type="hidden" name="id" #empId="ngModel" [(ngModel)]="id"  [ngModelOptions]="{standalone: true}">
+                    <div class="row col-md-12">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" class="form-control" formControlName="firstName"
+                                    placeholder="Enter First Name"
+                                    [ngClass]="{'is-invalid':formGroup.get('firstName').touched && formGroup.get('firstName').invalid}">
+                                <div class="invalid-feedback">
+                                    <p>Field is required</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" class="form-control" placeholder="Enter Last Name"
+                                    formControlName="lastName"
+                                    [ngClass]="{'is-invalid': formGroup.get('lastName').touched && formGroup.get('lastName').invalid}">
+                                <div class="invalid-feedback">
+                                    <p>Field is required</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="designation">Designation</label>
+                                <input type="text" class="form-control" placeholder="Enter Designation"
+                                    formControlName="designation"
+                                    [ngClass]="{'is-invalid': formGroup.get('designation').touched && formGroup.get('designation').invalid}">
+                                <div class="invalid-feedback">
+                                    <p>Field is required</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" placeholder="Enter Email"
+                                    formControlName="email"
+                                    [ngClass]="{'is-invalid': formGroup.get('email').touched && formGroup.get('email').invalid}">
+                                <div *ngIf="formGroup.get('email').touched && formGroup.get('email').invalid"
+                                    class="invalid-feedback">
+                                    <p *ngIf="formGroup.get('email').errors.required">Email is required</p>
+                                    <p *ngIf="formGroup.get('email').errors.email">Invalid Email</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="mobile">Mobile No.</label>
+                                <input type="text" class="form-control" placeholder="Enter Mobile No."
+                                    formControlName="mobile" maxlength="10"
+                                    [ngClass]="{'is-invalid': formGroup.get('mobile').touched && formGroup.get('mobile').invalid}">
+                                <div *ngIf="formGroup.get('mobile').touched && formGroup.get('mobile').invalid"
+                                    class="invalid-feedback">
+                                    <p *ngIf="formGroup.get('mobile').errors.required">Field is required</p>
+                                    <p *ngIf="formGroup.get('mobile').invalid">Invalid Mobile No.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="">Gender</label>
+                                <select formControlName="gender" class="form-control"
+                                    [ngClass]="{'is-invalid': formGroup.get('gender').touched && formGroup.get('gender').invalid}">
+                                    <option value="male">Male</option>
+                                    <option value="felame">Female</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <p>Field is required</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                <input type="text" class="form-control" placeholder="Enter Full Address"
+                                    formControlName="address"
+                                    [ngClass]="{'is-invalid': formGroup.get('address').touched && formGroup.get('address').invalid}">
+                                <div class="invalid-feedback">
+                                    <p>Field is required</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                            <button type="submit" class="btn btn-info mr-2" [disabled]="!formGroup.valid" (click)="onSubmit()"
+                                data-dismiss="modal" data-target="#addEmpModal">Submit</button>
+                            <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

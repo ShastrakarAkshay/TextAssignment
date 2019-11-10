@@ -1,0 +1,25 @@
+1. To Get Started With Angular Material install following packages
+ng add @angular/material @angular/cdk @angular/animation
+
+2. Angular Toastr
+npm install ngx-toastr --save
+npm install @angular/animations --save
+add style in angular.json:
+"styles": [
+  "styles.scss",
+  "node_modules/ngx-toastr/toastr.css" // try adding '../' if you're using angular cli before 6
+]
+import { ToastrModule } from 'ngx-toastr';
+ToastrModule.forRoot()
+
+3. Get Started With Firebase
+npm i --s firebase @angular/fire
+Add configuration in environment.ts file
+Import AngularFireModule and AngularFirestoreModule in AppModule.ts file
+import { AngularFireModule } from '@angular/fire'
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
+AngularFireModule.initializeapp(env.fireconfig);
+
+inject service firestore and save data using:
+this.firestore.collection('employeeDB').add(data);
