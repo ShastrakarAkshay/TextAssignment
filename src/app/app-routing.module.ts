@@ -17,11 +17,11 @@ const routes: Routes = [
     component: EmployeeListComponent
   },
   {
-    path: 'empList/empDetails/:id',
+    path: 'empDetails/:id',
     component: EmployeeDetailsComponent
   },
   {
-    path: 'empList/empDetails/resume',
+    path: 'resume',
     component: EmployeeResumeComponent
   },
   {

@@ -28,9 +28,9 @@
             <th></th>
         </thead>
         <tbody>
-            <tr *ngFor="let emp of empData">
+            <tr *ngFor="let emp of empData | searchName: searchKey.value">
                 <td>{{emp.empId}}</td>
-                <td><a routerLink="empDetails/{{emp.id}}" class="empNameLink">{{emp.firstName}} {{emp.lastName}}</a></td>
+                <td class="empNameLink pointer"><a (click)="redirect(emp.id)">{{emp.firstName}} {{emp.lastName}}</a></td>
                 <td>{{emp.designation}}</td>
                 <td class="text-right">
                     <a class="btn text-info pointer" (click)="editEmployee(emp)" data-toggle="modal" data-dismiss="modal" matTooltip="Update Employee"

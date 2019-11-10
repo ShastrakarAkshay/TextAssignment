@@ -36,6 +36,10 @@ export class EmployeeListComponent implements OnInit {
 
   ngOnInit() {
 
+    this.getEmployeeData();
+  }
+
+  getEmployeeData(){
     this.empService.getEmployeeData().subscribe(data => {
       this.empData = data.map(item => {
         return {
@@ -53,11 +57,11 @@ export class EmployeeListComponent implements OnInit {
 
   onSubmit() {
     const formData = this.formGroup.value;
-    if (this.id == null){
+    if (this.id == null) {
       this.empService.addEmployee(formData);
       this.tostr.success('Employee Added Successfully !', 'Employee Register');
     }
-    else{
+    else {
       formData.id = this.id;
       this.empService.updateEmployee(formData);
       this.tostr.success('Employee Updated Successfully !', 'Employee Register');
@@ -74,7 +78,7 @@ export class EmployeeListComponent implements OnInit {
 
   deleteEmployee(emp: any) {
     let isDelete = confirm('Do You Want To Delete Employee - ' + emp.firstName + ' ' + emp.lastName + '(' + emp.empId + ')');
-    if(isDelete){
+    if (isDelete) {
       this.empService.deleteEmployee(emp.id);
       this.tostr.info('Employee Deleted');
     }
@@ -99,13 +103,20 @@ export class EmployeeListComponent implements OnInit {
   }
 
   filterByName(serachKey: string) {
-    // let filterArr = [];
-    // for (let emp of this.empData) {
-    //   if (emp.firstName.startsWith(serachKey)) {
+    // let filterArr = this.empData;
+    // for (let emp of filterArr) {
+    //   if (emp.firstName.toLowerCase().startsWith(serachKey.toLowerCase())) {
     //     filterArr.push(emp);
     //   }
     // }
     // this.empData = filterArr;
+    // if(serachKey.length == 0){
+    //   this.getEmployeeData();
+    // }
+  }
+
+  redirect(id: string) {
+    this.router.navigateByUrl('empDetails/' + id);
   }
 
 

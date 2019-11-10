@@ -12,7 +12,7 @@ export class EmployeeDetailsComponent implements OnInit {
   id: string;
   empData: any;
   
-  constructor(private router: ActivatedRoute, private empService: EmployeeService) {
+  constructor(private router: ActivatedRoute, private empService: EmployeeService, private route: Router) {
     this.router.params.subscribe(param => {
       this.id = param.id;
     })
@@ -37,6 +37,10 @@ export class EmployeeDetailsComponent implements OnInit {
 
   goBack(){
     window.history.back();
+  }
+
+  redirect(){
+    this.route.navigateByUrl("resume");
   }
 
 }

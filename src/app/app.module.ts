@@ -21,7 +21,9 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from 'src/environments/environment';
+import { SearchNamePipe } from './search-name.pipe';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { environment } from 'src/environments/environment';
     EmployeeDetailsComponent,
     PageNotFoundComponent,
     DataTableComponent,
-    EmployeeResumeComponent
+    EmployeeResumeComponent,
+    SearchNamePipe
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,8 @@ import { environment } from 'src/environments/environment';
     MatDialogModule,
     ToastrModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AngularFireDatabaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]
