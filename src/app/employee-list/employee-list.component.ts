@@ -18,6 +18,8 @@ export class EmployeeListComponent implements OnInit {
   formGroup: FormGroup;
   mobileNumber = "[0-9]{10}";
   formHeader: string = '';
+  btnLabel: string = '';
+  isDisabled: boolean = false;
   id: string;
 
   constructor(private empService: EmployeeService, private router: Router, private tostr: ToastrService, private firestore: AngularFirestore) {
@@ -74,6 +76,8 @@ export class EmployeeListComponent implements OnInit {
     this.formGroup.reset();
     this.id = null;
     this.formHeader = 'Add New Employee';
+    this.btnLabel = "Submit";
+    this.isDisabled = false;
   }
 
   deleteEmployee(emp: any) {
@@ -87,7 +91,9 @@ export class EmployeeListComponent implements OnInit {
 
   editEmployee(emp: any) {
     this.formGroup.reset();
+    this.isDisabled = true;
     this.formHeader = 'Emp ID - ' + emp.empId;
+    this.btnLabel = "Update";
 
     this.formGroup.setValue({
       firstName: emp.firstName,
@@ -103,20 +109,15 @@ export class EmployeeListComponent implements OnInit {
   }
 
   filterByName(serachKey: string) {
-    // let filterArr = this.empData;
-    // for (let emp of filterArr) {
-    //   if (emp.firstName.toLowerCase().startsWith(serachKey.toLowerCase())) {
-    //     filterArr.push(emp);
-    //   }
-    // }
-    // this.empData = filterArr;
-    // if(serachKey.length == 0){
-    //   this.getEmployeeData();
-    // }
+    
   }
 
   redirect(id: string) {
     this.router.navigateByUrl('empDetails/' + id);
+  }
+
+  onFormChange(){
+    this.isDisabled = false;
   }
 
 

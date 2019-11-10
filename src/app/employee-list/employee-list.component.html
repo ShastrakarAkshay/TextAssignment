@@ -51,7 +51,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form [formGroup]="formGroup" (ngSubmit)="formGroup.valid">
+                <form [formGroup]="formGroup" (ngSubmit)="formGroup.valid" (change)="onFormChange()">
                     <input type="hidden" name="id" #empId="ngModel" [(ngModel)]="id"  [ngModelOptions]="{standalone: true}">
                     <div class="row col-md-12">
                         <div class="col-sm-6">
@@ -138,8 +138,8 @@
                             </div>
                         </div>
                         <div class="col-sm-12 text-center">
-                            <button type="submit" class="btn btn-info mr-2" [disabled]="!formGroup.valid" (click)="onSubmit()"
-                                data-dismiss="modal" data-target="#addEmpModal">Submit</button>
+                            <button type="submit" class="btn btn-info mr-2" [disabled]="!formGroup.valid || isDisabled" (click)="onSubmit()"
+                                data-dismiss="modal" data-target="#addEmpModal">{{btnLabel}}</button>
                             <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
                         </div>
                     </div>

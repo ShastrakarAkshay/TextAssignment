@@ -15,8 +15,8 @@ export class SearchNamePipe implements PipeTransform {
 
     let filterData = [];
     for (let emp of value) {
-      let name = emp.firstName + ' ' + emp.lastName;
-      if (name.toLowerCase().startsWith(args)) {
+      let name = emp.firstName + ' ' + emp.lastName + ' ' + emp.designation;
+      if (name.toLowerCase().includes(args)) {
         filterData.push(emp);
       }
     }
