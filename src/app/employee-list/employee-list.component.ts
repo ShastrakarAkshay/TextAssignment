@@ -5,7 +5,7 @@ import { EmployeeService } from '../shared/employee.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { isNgTemplate } from '@angular/compiler';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-employee-list',
@@ -22,7 +22,11 @@ export class EmployeeListComponent implements OnInit {
   isDisabled: boolean = false;
   id: string;
 
-  constructor(private empService: EmployeeService, private router: Router, private tostr: ToastrService, private firestore: AngularFirestore) {
+  notEmptyPost: boolean = true;
+  notScroll: boolean = true;
+
+  constructor(private empService: EmployeeService, private router: Router, private tostr: ToastrService,
+    private firestore: AngularFirestore, private spinner: NgxSpinnerService) {
     // this.empData = empService.getEmployeeData();
 
     this.formGroup = new FormGroup({
@@ -41,7 +45,7 @@ export class EmployeeListComponent implements OnInit {
     this.getEmployeeData();
   }
 
-  getEmployeeData(){
+  getEmployeeData() {
     this.empService.getEmployeeData().subscribe(data => {
       this.empData = data.map(item => {
         return {
@@ -109,17 +113,54 @@ export class EmployeeListComponent implements OnInit {
   }
 
   filterByName(serachKey: string) {
-    
+
   }
 
   redirect(id: string) {
     this.router.navigateByUrl('empDetails/' + id);
   }
 
-  onFormChange(){
+  onFormChange() {
     this.isDisabled = false;
   }
 
+  onScroll() {
 
+    if (this.notEmptyPost && this.notScroll){
+      this.spinner.show();
+      this.notScroll = false;
+      this.loadNextPost();
+    }
+  }
+
+  loadNextPost(){
+    //return last post from array
+    const lastPost = this.empData[this.empData.length - 1];
+
+    //get id of last post
+    const lastPostId = lastPost.id;
+
+    //send this id as key value parse using formdata()
+    const dataToSend = new FormData();
+    dataToSend.append('id',lastPostId);
+
+    //call http request
+    this.empService.getEmployeeData().subscribe(data => {
+      const newPost = data.map(item => {
+        return {
+          id: item.payload.doc.id,
+          ...item.payload.doc.data()
+        }
+      })
+      this.spinner.hide();
+      if(newPost.length === 0){
+        this.notEmptyPost = false;
+      }
+
+      //add newly fetched post to already existing data
+      this.empData = this.empData.concat(newPost);
+      this.notScroll = true;
+    })
+  }
 
 }

@@ -1,3 +1,7 @@
 i:hover {
     color: #17a2ba;
 }
+
+.pointer{
+    cursor: pointer;
+}

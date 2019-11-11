@@ -23,3 +23,7 @@ AngularFireModule.initializeapp(env.fireconfig);
 
 inject service firestore and save data using:
 this.firestore.collection('employeeDB').add(data);
+
+4. ngx-infinite-scroll
+    npm install ngx-infinite-scroll --save
+    npm install ngx-spinner --save
