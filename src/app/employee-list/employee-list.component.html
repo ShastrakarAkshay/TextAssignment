@@ -9,7 +9,6 @@
         </div>
     </div>
     <hr>
-
     <div class="row">
         <div class="col-sm-6">
             <button class="btn btn-info" data-toggle="modal" data-target="#addEmpModal" (click)="addEmployee()">Add
@@ -32,7 +31,7 @@
                 <th></th>
             </thead>
             <tbody>
-                <tr *ngFor="let emp of empData | searchName: searchKey.value">
+                <tr *ngFor="let emp of empData | searchName: searchKey.value ">
                     <td>{{emp.empId}}</td>
                     <td class="empNameLink pointer"><a (click)="redirect(emp.id)">{{emp.firstName}} {{emp.lastName}}</a>
                     </td>
@@ -127,7 +126,7 @@
                                 <div *ngIf="formGroup.get('mobile').touched && formGroup.get('mobile').invalid"
                                     class="invalid-feedback">
                                     <p *ngIf="formGroup.get('mobile').errors.required">Field is required</p>
-                                    <p *ngIf="formGroup.get('mobile').invalid">Invalid Mobile No.</p>
+                                    <p *ngIf="formGroup.get('mobile').invalid && !formGroup.get('mobile').errors.required">Invalid Mobile No.</p>
                                 </div>
                             </div>
                         </div>
@@ -157,9 +156,8 @@
                         </div>
                         <div class="col-sm-12 text-center">
                             <button type="submit" class="btn btn-info mr-2" [disabled]="!formGroup.valid || isDisabled"
-                                (click)="onSubmit()" data-dismiss="modal"
-                                data-target="#addEmpModal">{{btnLabel}}</button>
-                            <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                                data-dismiss="modal" data-target="#addEmpModal" (click)="onSubmit()" >{{btnLabel}}</button>
+                            <button type="button" class="btn btn-info" data-dismiss="modal" #closeModal>Close</button>
                         </div>
                     </div>
                 </form>

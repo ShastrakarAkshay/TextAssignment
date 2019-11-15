@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from 'selenium-webdriver/http';
 import { Router } from '@angular/router';
 import { EmployeeService } from '../shared/employee.service';
@@ -22,6 +22,8 @@ export class EmployeeListComponent implements OnInit {
   isDisabled: boolean = false;
   id: string;
 
+  @ViewChild('closeModal', {static: false}) closeModal : ElementRef;
+
   notEmptyPost: boolean = true;
   notScroll: boolean = true;
 
@@ -41,13 +43,13 @@ export class EmployeeListComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.getEmployeeData();
   }
 
   getEmployeeData() {
     this.empService.getEmployeeData().subscribe(data => {
       this.empData = data.map(item => {
+        console.log(item.payload.doc)
         return {
           id: item.payload.doc.id,
           empId: Number(item.payload.newIndex) + 1 * 1000,
@@ -64,15 +66,17 @@ export class EmployeeListComponent implements OnInit {
   onSubmit() {
     const formData = this.formGroup.value;
     if (this.id == null) {
-      this.empService.addEmployee(formData);
-      this.tostr.success('Employee Added Successfully !', 'Employee Register');
+      if (this.formGroup.valid) {
+        this.empService.addEmployee(formData);
+        this.tostr.success('Employee Added Successfully !', 'Employee Register');
+      }
     }
     else {
       formData.id = this.id;
       this.empService.updateEmployee(formData);
       this.tostr.success('Employee Updated Successfully !', 'Employee Register');
     }
-
+    this.closeModal.nativeElement.click(); //programatically closing the modal
     this.formGroup.reset();
   }
 
@@ -126,14 +130,14 @@ export class EmployeeListComponent implements OnInit {
 
   onScroll() {
 
-    if (this.notEmptyPost && this.notScroll){
+    if (this.notEmptyPost && this.notScroll) {
       this.spinner.show();
       this.notScroll = false;
       this.loadNextPost();
     }
   }
 
-  loadNextPost(){
+  loadNextPost() {
     //return last post from array
     const lastPost = this.empData[this.empData.length - 1];
 
@@ -142,7 +146,7 @@ export class EmployeeListComponent implements OnInit {
 
     //send this id as key value parse using formdata()
     const dataToSend = new FormData();
-    dataToSend.append('id',lastPostId);
+    dataToSend.append('id', lastPostId);
 
     //call http request
     this.empService.getEmployeeData().subscribe(data => {
@@ -153,12 +157,12 @@ export class EmployeeListComponent implements OnInit {
         }
       })
       this.spinner.hide();
-      if(newPost.length === 0){
+      if (newPost.length === 0) {
         this.notEmptyPost = false;
       }
 
       //add newly fetched post to already existing data
-      this.empData = this.empData.concat(newPost);
+      //   this.empData = this.empData.concat(newPost);
       this.notScroll = true;
     })
   }

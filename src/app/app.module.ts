@@ -16,6 +16,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs';
 import {MatDialogModule} from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 import { EmployeeResumeComponent } from './employee-resume/employee-resume.component';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -26,6 +27,7 @@ import { environment } from 'src/environments/environment';
 import { SearchNamePipe } from './search-name.pipe';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { NavbarComponent, LoginDialog } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     PageNotFoundComponent,
     DataTableComponent,
     EmployeeResumeComponent,
-    SearchNamePipe
+    SearchNamePipe,
+    LoginDialog,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -55,8 +59,11 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     AngularFirestoreModule,
     AngularFireDatabaseModule,
     InfiniteScrollModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MatDialogModule,
+    MatButtonModule
   ],
+  entryComponents: [LoginDialog],
   providers: [],
   bootstrap: [AppComponent]
 })

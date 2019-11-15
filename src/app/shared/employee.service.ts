@@ -6,64 +6,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
   providedIn: 'root'
 })
 export class EmployeeService {
-  empData = [
-    {
-      id: 1,
-      empId: 26790,
-      firstName: 'Akshay',
-      lastName: 'Shastrakar',
-      email: 'akshay.shastrakar1@gmail.com',
-      mobile: 9767986750,
-      gender: 'male',
-      designation: "UI Developer",
-      address: "Pune"
-    }, 
-    {
-      id: 2,
-      empId: 26791,
-      firstName: 'Ram',
-      lastName: 'Udgire',
-      email: 'akshay.shastrakar1@gmail.com',
-      mobile: 9767986750,
-      gender: 'male',
-      designation: "UI Developer",
-      address: "Pune"
-    },
-    {
-      id: 3,
-      empId: 26792,
-      firstName: 'Ravi',
-      lastName: 'Kalurkar',
-      email: 'akshay.shastrakar1@gmail.com',
-      mobile: 9767986750,
-      gender: 'male',
-      designation: "UI Developer",
-      address: "Pune"
-    },
-    {
-      id: 4,
-      empId: 26793,
-      firstName: 'Gaurav',
-      lastName: 'Kurwade',
-      email: 'akshay.shastrakar1@gmail.com',
-      mobile: 9767986750,
-      gender: 'male',
-      designation: "UI Developer",
-      address: "Pune"
-    },
-    {
-      id: 5,
-      empId: 26794,
-      firstName: 'Adesh',
-      lastName: 'Ratnmal',
-      email: 'akshay.shastrakar1@gmail.com',
-      mobile: 9767986750,
-      gender: 'male',
-      designation: "UI Developer",
-      address: "Pune"
-    }
-  ];
-
+  
   constructor(private firestore: AngularFirestore, private db: AngularFireDatabase) { }
 
   getEmployeeData() {
@@ -83,14 +26,16 @@ export class EmployeeService {
     //     console.log(item.data())
     //   })
     // })  
-
-    return this.firestore.collection('EmployeeDB').snapshotChanges();
+    
+    return this.firestore.collection('EmployeeDB', ref => ref.orderBy('firstName', 'asc')).snapshotChanges();
 
   }
 
   addEmployee(emp: any) {
     // this.empData.push(emp);
-    this.firestore.collection('EmployeeDB').add(emp);
+    this.firestore.collection('EmployeeDB').add(emp).then(ref => {
+      ref.set({ id: ref.id }, { merge: true });
+    });
   }
 
   updateEmployee(emp: any) {
@@ -101,7 +46,7 @@ export class EmployeeService {
     this.firestore.doc('EmployeeDB/' + id).delete();
   }
 
-  getEmployeeById(id: string){
+  getEmployeeById(id: string) {
     return this.firestore.collection('EmployeeDB').doc(id).snapshotChanges();
   }
 }

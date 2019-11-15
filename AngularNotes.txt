@@ -27,3 +27,17 @@ this.firestore.collection('employeeDB').add(data);
 4. ngx-infinite-scroll
     npm install ngx-infinite-scroll --save
     npm install ngx-spinner --save
+
+5. Angular Modal
+   npm install @angula/material/dialog
+   MatDialogModule
+
+6. Firebase Deployment App
+   npm install -g firebase-tools
+   npm build --prod
+   firebase login
+   firebase init
+   firebase deploy //before deploy copy all files in public folder
+
+7. Angular Material login form
+
