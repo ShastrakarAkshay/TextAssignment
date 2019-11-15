@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+<!-- <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <ul class="navbar-nav">
         <li class="nav-item active">
             <a class="nav-link" href="#">TexT</a>
@@ -7,4 +7,16 @@
             <a class="nav-link" (click)="openDialog()">Login</a>
         </li>
     </ul>
+</nav> -->
+
+<nav class="navbar navbar-toggleable-sm  bg-inverse navbar-dark bg-dark">
+    <!-- <img src="assets/images/logo.png" class="img" alt="" style="height:50px;"> -->
+    <ul class="navbar-nav">
+        <li class="nav-item active">
+            <a class="nav-link" href="#">Persistent System Ltd.</a>
+        </li>
+    </ul>
+    <a class="btn btn-default bg-light" (click)="openDialog()" style="border: 1px solid white;" [hidden]="isLogin">Login</a>
+    <a class="btn btn-default bg-light" (click)="logout()" style="border: 1px solid white;" [hidden]="!isLogin">Logout</a>
+
 </nav>

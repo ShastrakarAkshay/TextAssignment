@@ -49,4 +49,8 @@ export class EmployeeService {
   getEmployeeById(id: string) {
     return this.firestore.collection('EmployeeDB').doc(id).snapshotChanges();
   }
+
+  getUsers(){
+    return this.firestore.collection("users").snapshotChanges();
+  }
 }

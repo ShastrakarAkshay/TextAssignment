@@ -36,11 +36,11 @@
                     <td class="empNameLink pointer"><a (click)="redirect(emp.id)">{{emp.firstName}} {{emp.lastName}}</a>
                     </td>
                     <td>{{emp.designation}}</td>
-                    <td class="text-right">
+                    <td class="text-center">
                         <a class="btn text-info pointer" (click)="editEmployee(emp)" data-toggle="modal"
                             data-dismiss="modal" matTooltip="Update Employee" data-target="#addEmpModal"><i
                                 class="fa fa-edit"></i></a>
-                        <a class="btn text-danger pointer" (click)="deleteEmployee(emp)" matTooltip="Delete Employee"><i
+                        <a *ngIf="role==='admin'" class="btn text-danger pointer" (click)="deleteEmployee(emp)" matTooltip="Delete Employee"><i
                                 class="fa fa-trash"></i></a>
                     </td>
                 </tr>

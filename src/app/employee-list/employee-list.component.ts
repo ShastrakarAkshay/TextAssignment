@@ -21,6 +21,7 @@ export class EmployeeListComponent implements OnInit {
   btnLabel: string = '';
   isDisabled: boolean = false;
   id: string;
+  role: string = '';
 
   @ViewChild('closeModal', {static: false}) closeModal : ElementRef;
 
@@ -44,12 +45,12 @@ export class EmployeeListComponent implements OnInit {
 
   ngOnInit() {
     this.getEmployeeData();
+    this.role = localStorage.getItem('role')
   }
 
   getEmployeeData() {
     this.empService.getEmployeeData().subscribe(data => {
       this.empData = data.map(item => {
-        console.log(item.payload.doc)
         return {
           id: item.payload.doc.id,
           empId: Number(item.payload.newIndex) + 1 * 1000,

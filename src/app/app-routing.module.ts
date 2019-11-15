@@ -5,6 +5,7 @@ import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
 import { EmployeeResumeComponent } from './employee-resume/employee-resume.component';
+import { AuthGuard } from './guards/auth.guard';
 
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
   },
   {
     path: "empList",
-    component: EmployeeListComponent
+    component: EmployeeListComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'empDetails/:id',

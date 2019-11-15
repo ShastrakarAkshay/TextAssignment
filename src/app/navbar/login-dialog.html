@@ -1,12 +1,41 @@
+<i class="fa fa-close pull-right" (click)="onNoClick()"></i>
 <h1 mat-dialog-title class="text-center">Login</h1>
 <div mat-dialog-content>
-    
-    <section>
-        
-    </section>
-  
+    <form [formGroup]="loginForm">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <input type="text" placeholder="username" formControlName="username" class="form-control"
+                        [ngClass]="{'is-invalid':loginForm.get('username').touched && loginForm.get('username').invalid}">
+                    <div class="invalid-feedback">
+                        <p>username required</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <input type="password" placeholder="password" formControlName="password" class="form-control"
+                        autocomplete="false"
+                        [ngClass]="{'is-invalid':loginForm.get('password').touched && loginForm.get('password').invalid}">
+                    <div class="invalid-feedback">
+                        <p>password required</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <button class="form-control btn btn-info" [disabled]="loginForm.invalid" (click)="validateLogin()">Login</button>
+                <!-- <button class="btn btn-primary ml-2" (click)="onNoClick()">Cancel</button> -->
+            </div>
+        </div>
+        <div class="col-sm-12 alert alert-danger mt-2" *ngIf="invalidLogin">
+            Invalid Credentials
+        </div>
+    </form>
 </div>
-<div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">No Thanks</button>
-    <button mat-button cdkFocusInitial>Ok</button>
+<div class="text-center bg-light mt-2">
+    <span>Forgot Password?</span>
 </div>

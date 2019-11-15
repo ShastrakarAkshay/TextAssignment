@@ -28,6 +28,9 @@ import { SearchNamePipe } from './search-name.pipe';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { NavbarComponent, LoginDialog } from './navbar/navbar.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
+import { MatFormFieldModule, MatInputModule, MatCardModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -41,6 +44,7 @@ import { NavbarComponent, LoginDialog } from './navbar/navbar.component';
     SearchNamePipe,
     LoginDialog,
     NavbarComponent
+  
   ],
   imports: [
     BrowserModule,
@@ -61,7 +65,11 @@ import { NavbarComponent, LoginDialog } from './navbar/navbar.component';
     InfiniteScrollModule,
     NgxSpinnerModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    MatSnackBarModule
   ],
   entryComponents: [LoginDialog],
   providers: [],
