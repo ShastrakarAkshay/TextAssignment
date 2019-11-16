@@ -27,7 +27,7 @@ import { environment } from 'src/environments/environment';
 import { SearchNamePipe } from './search-name.pipe';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { NavbarComponent, LoginDialog } from './navbar/navbar.component';
+import { NavbarComponent, LoginDialog, LogoutDialog } from './navbar/navbar.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { MatFormFieldModule, MatInputModule, MatCardModule } from '@angular/material';
@@ -44,6 +44,7 @@ import { FooterComponent } from './footer/footer.component';
     EmployeeResumeComponent,
     SearchNamePipe,
     LoginDialog,
+    LogoutDialog,
     NavbarComponent,
     FooterComponent
   
@@ -73,7 +74,7 @@ import { FooterComponent } from './footer/footer.component';
     MatCardModule,
     MatSnackBarModule
   ],
-  entryComponents: [LoginDialog],
+  entryComponents: [LoginDialog, LogoutDialog],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -15,23 +15,21 @@ import { __core_private_testing_placeholder__ } from '@angular/core/testing';
 })
 export class NavbarComponent implements OnInit, AfterViewInit {
 
-  isLogin:boolean = false;
+  isLogin: boolean = false;
 
   constructor(private dialog: MatDialog, private router: Router, private empService: EmployeeService) {
   }
 
   ngOnInit() {
-    if(!this.empService.isLogin()) {
+    if (!this.empService.isLogin()) {
+        this.openDialog();
       this.isLogin = true;
-      this.openDialog();
-    }else{
+    } else {
       this.isLogin = false;
     }
   }
 
-  ngAfterViewInit() {
-   
-  }
+  ngAfterViewInit() { }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(LoginDialog, {
@@ -39,22 +37,29 @@ export class NavbarComponent implements OnInit, AfterViewInit {
       data: { name: 'akshay' }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(!this.empService.isLogin())
+      if (!this.empService.isLogin())
         this.isLogin = true;
       else
         this.isLogin = false;
     });
   }
 
-  logout() {
-    let isLogout = confirm('Are You Want To Logout?');
-    if (isLogout) {
-      this.empService.logout();
-      this.router.navigateByUrl('');
-      this.openDialog();
-    }
+  openLogoutDialog(): void {
+    const dialogRef = this.dialog.open(LogoutDialog, {
+      width: '350px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'logout') {
+        this.empService.logout();
+        this.router.navigateByUrl('');
+          this.openDialog();
+      }
+    });
   }
 
+  logout() {
+    this.openLogoutDialog();
+  }
 }
 
 
@@ -80,7 +85,7 @@ export class LoginDialog implements OnInit {
     })
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -95,14 +100,14 @@ export class LoginDialog implements OnInit {
       this.invalidLogin = false;
 
       localStorage.setItem('token', 'true');
-      
-      if (user == 'Admin'){
+
+      if (user == 'Admin') {
         localStorage.setItem('role', 'admin');
       }
-      else{
+      else {
         localStorage.setItem('role', 'public');
       }
-      
+
       this.empService.isLogin();
       this.onNoClick();
       this.router.navigateByUrl('/empList');
@@ -111,3 +116,23 @@ export class LoginDialog implements OnInit {
     }
   }
 }
+
+@Component({
+  selector: 'logout-dialog',
+  templateUrl: 'logout-dialog.html'
+})
+export class LogoutDialog implements OnInit {
+
+  constructor(private empService: EmployeeService, private router: Router,
+    public dialogRef: MatDialogRef<LogoutDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: { key: 'logout' }) {
+  }
+
+  ngOnInit() { }
+
+  onNoClick() {
+    this.dialogRef.close();
+  }
+}
+
+
