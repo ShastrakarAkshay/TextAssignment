@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject, AfterViewInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+import { EmployeeService } from '../shared/employee.service';
 
 @Component({
   selector: 'app-home',
@@ -8,29 +9,19 @@ import { MatSnackBar } from '@angular/material';
 })
 export class HomeComponent implements OnInit, AfterViewInit {
 
-  isLogin:boolean = false;
-
-  constructor(private snackBar: MatSnackBar) {
-
+  constructor(private snackBar: MatSnackBar, private empService: EmployeeService) {
    }
 
   ngOnInit() { 
-    if(localStorage.getItem('login')=='true'){
-      this.isLogin = true;
-    }
-    else{
-      this.isLogin = false;
-    }
   }
 
   ngAfterViewInit() { 
-    
   }
 
   validate(){
-    if(this.isLogin == false){
+    if(!this.empService.isLogin()){
       this.snackBar.open('Please Login First?', 'Login', {
-        duration: 2000,
+        duration: 1000,
       });
     }
   }

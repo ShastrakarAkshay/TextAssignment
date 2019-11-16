@@ -16,7 +16,7 @@
             <a class="nav-link" routerLink="">Persistent System Ltd.</a>
         </li>
     </ul>
-    <a class="btn btn-default bg-light" (click)="openDialog()" style="border: 1px solid white;" [hidden]="isLogin">Login</a>
-    <a class="btn btn-default bg-light" (click)="logout()" style="border: 1px solid white;" [hidden]="!isLogin">Logout</a>
+    <a class="btn btn-default bg-light" (click)="openDialog()" style="border: 1px solid white;" [hidden]="!isLogin">Login</a>
+    <a class="btn btn-default bg-light" (click)="logout()" style="border: 1px solid white;" [hidden]="isLogin">Logout</a>
 
 </nav>

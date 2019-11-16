@@ -20,11 +20,13 @@ const routes: Routes = [
   },
   {
     path: 'empDetails/:id',
-    component: EmployeeDetailsComponent
+    component: EmployeeDetailsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'resume',
-    component: EmployeeResumeComponent
+    component: EmployeeResumeComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "notfound",

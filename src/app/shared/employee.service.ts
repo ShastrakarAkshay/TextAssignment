@@ -51,6 +51,23 @@ export class EmployeeService {
   }
 
   getUsers(){
+    const AdminId = 'YgENdKFolwTLII94HWeK';
+    const PublicId = 'XQuNXevLlSKiTjfN8tp5';
+
     return this.firestore.collection("users").snapshotChanges();
+  }
+
+  isLogin(){
+    if(localStorage.getItem('token')){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  logout(){
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
   }
 }

@@ -5,6 +5,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { EmployeeService } from '../shared/employee.service';
 import { ConcatSource } from 'webpack-sources';
 import { Router } from '@angular/router';
+import { __core_private_testing_placeholder__ } from '@angular/core/testing';
 
 
 @Component({
@@ -14,25 +15,22 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit, AfterViewInit {
 
-  isLogin: boolean = false;
+  isLogin:boolean = false;
 
-  constructor(private dialog: MatDialog, private router: Router) {
-
+  constructor(private dialog: MatDialog, private router: Router, private empService: EmployeeService) {
   }
 
   ngOnInit() {
-    let login = localStorage.getItem('login');
-    if (localStorage.getItem('login') === 'true') {
+    if(!this.empService.isLogin()) {
       this.isLogin = true;
+      this.openDialog();
     }else{
       this.isLogin = false;
     }
   }
 
   ngAfterViewInit() {
-    if (this.isLogin == false) {
-      this.openDialog();
-    }
+   
   }
 
   openDialog(): void {
@@ -40,18 +38,21 @@ export class NavbarComponent implements OnInit, AfterViewInit {
       width: '400px',
       data: { name: 'akshay' }
     });
-
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if(!this.empService.isLogin())
+        this.isLogin = true;
+      else
+        this.isLogin = false;
     });
   }
 
-  logout(){
-    localStorage.setItem('login', 'false');
-    localStorage.setItem('role', '');
-    this.isLogin = false;
-    this.router.navigateByUrl('');
-    this.openDialog();
+  logout() {
+    let isLogout = confirm('Are You Want To Logout?');
+    if (isLogout) {
+      this.empService.logout();
+      this.router.navigateByUrl('');
+      this.openDialog();
+    }
   }
 
 }
@@ -65,12 +66,9 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 export class LoginDialog implements OnInit {
 
   loginForm: FormGroup;
-  userData: any = [];
   username: string = '';
   password: string = '';
-  userType: string = '';
   invalidLogin: boolean = false;
-
 
   constructor(private empService: EmployeeService, private router: Router,
     public dialogRef: MatDialogRef<LoginDialog>,
@@ -82,37 +80,34 @@ export class LoginDialog implements OnInit {
     })
   }
 
-  ngOnInit() {
-    this.empService.getUsers().subscribe(result => {
-      result.forEach(items => {
-        this.userData.push(items.payload.doc.data());
-      })
-    })
-  }
-
+  ngOnInit() {}
 
   onNoClick(): void {
     this.dialogRef.close();
     this.loginForm.reset();
   }
 
-  validateLogin(title: string) {
-    console.log('title', title)
+  validateLogin() {
     const user = this.loginForm.get('username').value;
     const pass = this.loginForm.get('password').value;
-    this.userData.forEach(item => {
-      if (user === item.username && pass === item.password) {
-        this.userType = item.role;
-        this.invalidLogin = false;
-        localStorage.setItem('login', 'true');
-        localStorage.setItem('role', item.role);
-        this.onNoClick();
-        this.router.navigateByUrl('/empList')
-      } else {
-        this.invalidLogin = true;
+
+    if ((user == 'Admin' && pass == 'Akshay@13.13') || (user == 'Public' && pass == '12345')) {
+      this.invalidLogin = false;
+
+      localStorage.setItem('token', 'true');
+      
+      if (user == 'Admin'){
+        localStorage.setItem('role', 'admin');
       }
-    })
-
+      else{
+        localStorage.setItem('role', 'public');
+      }
+      
+      this.empService.isLogin();
+      this.onNoClick();
+      this.router.navigateByUrl('/empList');
+    } else {
+      this.invalidLogin = true;
+    }
   }
-
 }
