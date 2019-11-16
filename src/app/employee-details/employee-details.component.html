@@ -1,14 +1,16 @@
 <section>
     <div class="row">
-        <div class="col-sm-1">
+        <div class="col-4">
             <button class="btn btn-transperent" (click)="goBack()" matTooltip="Go Back" matTooltipPosition="left"><i
                     class="fa fa-arrow-circle-o-left" style="font-size:30px"></i></button>
         </div>
-        <div class="col-sm-9 text-center">
+        <div class="col-4 text-center">
             <h5>Employee Details</h5>
         </div>
-        <div class="col-sm-2">
-            <a (click)="redirect()" class="btn text-info pointer">Flip To Resume</a>
+        <div class="col-4 text-right">
+            <!-- <a (click)="redirect()" class="btn text-info pointer">Flip To Resume</a> -->
+            <button class="btn btn-transperent" (click)="redirect()" matTooltip="Flip To Resume" matTooltipPosition="left">
+                <i class="fa fa-file" style="font-size:25px"></i></button>
         </div>
     </div>
     <hr>
@@ -16,34 +18,34 @@
         <div class="col-md-4 text-center">
             <img src="assets/images/user.png" class="img-thumbnail">
         </div>
-        <div class="col-md-8 px-5" style="line-height: 35px;">
+        <div class="col-md-8 details" style="line-height: 35px;">
             <div class="row">
-                <div class="col-sm-4"><strong>Emp ID <span class="pull-right"> : </span></strong></div>
-                <div class="col-sm-8">1000</div>
+                <div class="col-5"><strong>Emp ID <span class="pull-right"> : </span></strong></div>
+                <div class="col-7">1000</div>
             </div>
             <div class="row">
-                <div class="col-sm-4"><strong>Emp Name <span class="pull-right"> : </span></strong></div>
-                <div class="col-sm-8">{{empData.firstName}} {{empData.lastName}}</div>
+                <div class="col-5"><strong>Emp Name <span class="pull-right"> : </span></strong></div>
+                <div class="col-7">{{empData.firstName}} {{empData.lastName}}</div>
             </div>
             <div class="row">
-                <div class="col-sm-4"><strong>Gender <span class="pull-right"> : </span></strong></div>
-                <div class="col-sm-8">{{empData.gender}}</div>
+                <div class="col-5"><strong>Gender <span class="pull-right"> : </span></strong></div>
+                <div class="col-7">{{empData.gender}}</div>
             </div>
             <div class="row">
-                <div class="col-sm-4"><strong>Designation <span class="pull-right"> : </span></strong></div>
-                <div class="col-sm-8">{{empData.designation}}</div>
+                <div class="col-5"><strong>Designation <span class="pull-right"> : </span></strong></div>
+                <div class="col-7">{{empData.designation}}</div>
             </div>
             <div class="row">
-                <div class="col-sm-4"><strong>Email <span class="pull-right"> : </span></strong></div>
-                <div class="col-sm-8">{{empData.email}}</div>
+                <div class="col-5"><strong>Email <span class="pull-right"> : </span></strong></div>
+                <div class="col-7">{{empData.email}}</div>
             </div>
             <div class="row">
-                <div class="col-sm-4"><strong>Mobile <span class="pull-right"> : </span></strong></div>
-                <div class="col-sm-8">{{empData.mobile}}</div>
+                <div class="col-5"><strong>Mobile <span class="pull-right"> : </span></strong></div>
+                <div class="col-7">{{empData.mobile}}</div>
             </div>
             <div class="row">
-                <div class="col-sm-4"><strong>Address <span class="pull-right"> : </span></strong></div>
-                <div class="col-sm-8">{{empData.address}}</div>
+                <div class="col-5"><strong>Address <span class="pull-right"> : </span></strong></div>
+                <div class="col-7">{{empData.address}}</div>
             </div>
         </div>
     </div>

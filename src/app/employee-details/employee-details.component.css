@@ -5,3 +5,11 @@ i:hover {
 .pointer{
     cursor: pointer;
 }
+
+@media (max-width: 786px){
+    .details {
+        margin-top:20px;
+        margin-left:10px;
+        padding-bottom: 40px;
+    }
+}

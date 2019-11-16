@@ -1,21 +1,21 @@
 <section>
     <div class="row">
-        <div class="col-sm-1">
+        <div class="col-4">
             <button class="btn btn-transperent" (click)="goBack()" matTooltip="Go Back" matTooltipPosition="left"><i
                     class="fa fa-arrow-circle-o-left" style="font-size:30px"></i></button>
         </div>
-        <div class="col-sm-11 text-center">
+        <div class="col-4 text-center">
             <h5>Employee List</h5>
         </div>
     </div>
     <hr>
-    <div class="row">
-        <div class="col-sm-6">
+    <div class="row justify-content-between">
+        <div class="col-6">
             <button class="btn btn-info" data-toggle="modal" data-target="#addEmpModal" (click)="addEmployee()">Add
                 Employee</button>
         </div>
-        <div class="col-sm-6">
-            <input type="text" class="form-control" placeholder="Filter By Employee Name"
+        <div class="col-6 col-md-4">
+            <input type="text" class="form-control" placeholder="Search..."
                 (keyup)="filterByName(searchKey.value)" #searchKey>
         </div>
     </div>
@@ -23,9 +23,9 @@
     <div class="search-result" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
         (scrolled)="onScroll()">
 
-        <table class="table table-hover mt-3">
+        <table class="table table-hover mt-3 shadow">
             <thead class="bg-light">
-                <th>Id</th>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Designation</th>
                 <th></th>

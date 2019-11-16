@@ -44,6 +44,7 @@ export class EmployeeListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.spinner.show();
     this.getEmployeeData();
     this.role = localStorage.getItem('role')
   }
@@ -69,13 +70,13 @@ export class EmployeeListComponent implements OnInit {
     if (this.id == null) {
       if (this.formGroup.valid) {
         this.empService.addEmployee(formData);
-        this.tostr.success('Employee Added Successfully !', 'Employee Register');
+        this.tostr.success('Employee Added Successfully !');
       }
     }
     else {
       formData.id = this.id;
       this.empService.updateEmployee(formData);
-      this.tostr.success('Employee Updated Successfully !', 'Employee Register');
+      this.tostr.success('Employee Updated Successfully !');
     }
     this.closeModal.nativeElement.click(); //programatically closing the modal
     this.formGroup.reset();

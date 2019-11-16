@@ -31,6 +31,7 @@ import { NavbarComponent, LoginDialog } from './navbar/navbar.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { MatFormFieldModule, MatInputModule, MatCardModule } from '@angular/material';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { MatFormFieldModule, MatInputModule, MatCardModule } from '@angular/mate
     EmployeeResumeComponent,
     SearchNamePipe,
     LoginDialog,
-    NavbarComponent
+    NavbarComponent,
+    FooterComponent
   
   ],
   imports: [
