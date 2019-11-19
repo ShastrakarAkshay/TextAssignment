@@ -10,7 +10,7 @@ export class SearchNamePipe implements PipeTransform {
     if (!args) {
       return value;
     } else {
-      args = args.toLowerCase();
+      args = args.trim().toLowerCase();
     }
 
     let filterData = [];

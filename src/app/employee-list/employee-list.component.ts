@@ -6,6 +6,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-employee-list',
@@ -14,6 +17,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class EmployeeListComponent implements OnInit {
 
+  
   empData: any = [];
   formGroup: FormGroup;
   mobileNumber = "[0-9]{10}";
@@ -22,6 +26,11 @@ export class EmployeeListComponent implements OnInit {
   isDisabled: boolean = false;
   id: string;
   role: string = '';
+  
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  dataSource = new MatTableDataSource();
+  displayedColumns: string[] = ['empId', 'name', 'designation', 'actions'];
 
   @ViewChild('closeModal', {static: false}) closeModal : ElementRef;
 
@@ -30,7 +39,6 @@ export class EmployeeListComponent implements OnInit {
 
   constructor(private empService: EmployeeService, private router: Router, private tostr: ToastrService,
     private firestore: AngularFirestore, private spinner: NgxSpinnerService) {
-    // this.empData = empService.getEmployeeData();
 
     this.formGroup = new FormGroup({
       firstName: new FormControl('', Validators.required),
@@ -46,7 +54,7 @@ export class EmployeeListComponent implements OnInit {
   ngOnInit() {
     this.spinner.show();
     this.getEmployeeData();
-    this.role = localStorage.getItem('role')
+    this.role = localStorage.getItem('role');
   }
 
   getEmployeeData() {
@@ -55,9 +63,13 @@ export class EmployeeListComponent implements OnInit {
         return {
           id: item.payload.doc.id,
           empId: Number(item.payload.newIndex) + 1 * 1000,
+          name: item.payload.doc.get('firstName') + ' ' + item.payload.doc.get('lastName'),
           ...item.payload.doc.data()
         }
       })
+      this.dataSource.data = this.empData;
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     })
   }
 
@@ -70,13 +82,13 @@ export class EmployeeListComponent implements OnInit {
     if (this.id == null) {
       if (this.formGroup.valid) {
         this.empService.addEmployee(formData);
-        this.tostr.success('Employee Added Successfully !');
+        this.tostr.success('Employee Added!');
       }
     }
     else {
       formData.id = this.id;
       this.empService.updateEmployee(formData);
-      this.tostr.success('Employee Updated Successfully !');
+      this.tostr.success('Employee Updated!');
     }
     this.closeModal.nativeElement.click(); //programatically closing the modal
     this.formGroup.reset();
@@ -119,7 +131,8 @@ export class EmployeeListComponent implements OnInit {
   }
 
   filterByName(serachKey: string) {
-
+    this.dataSource.filter = serachKey.trim().toLowerCase();
+    this.spinner.hide();
   }
 
   redirect(id: string) {

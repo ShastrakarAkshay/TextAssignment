@@ -11,16 +11,59 @@
     <hr>
     <div class="row justify-content-between">
         <div class="col-6">
-            <button class="btn btn-info" data-toggle="modal" data-target="#addEmpModal" (click)="addEmployee()">Add
+            <button class="btn btn-info add-btn" data-toggle="modal" data-target="#addEmpModal" (click)="addEmployee()">Add
                 Employee</button>
         </div>
         <div class="col-6 col-md-4">
-            <input type="text" class="form-control" placeholder="Search..."
-                (keyup)="filterByName(searchKey.value)" #searchKey>
+            <input type="text" class="form-control" placeholder="Search..." (keyup)="filterByName(searchKey.value)"
+                #searchKey>
         </div>
     </div>
 
-    <div class="search-result" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+    <div class="search-result mat-elevation-z8 mt-3" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+        (scrolled)="onScroll()">
+        <table mat-table [dataSource]="dataSource" matSort class="table-hover data-table">
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="empId">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef class="bg-light"> Emp ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.empId}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef class="bg-light"> Name </th>
+                <td mat-cell *matCellDef="let element" class="empNameLink pointer" (click)="redirect(element.id)">
+                    {{element.name}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="designation">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef class="bg-light"> Designation </th>
+                <td mat-cell *matCellDef="let element"> {{element.designation}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef class="bg-light"> </th>
+                <td mat-cell *matCellDef="let element" class="text-center">
+                    <a class="btn text-info pointer" (click)="editEmployee(element)" data-toggle="modal"
+                        data-dismiss="modal" matTooltip="Update Employee" data-target="#addEmpModal"><i
+                            class="fa fa-edit"></i></a>
+                    <a *ngIf="role==='admin'" class="btn text-danger pointer" (click)="deleteEmployee(element)"
+                        matTooltip="Delete Employee"><i class="fa fa-trash"></i></a>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons>
+        </mat-paginator>
+    </div>
+
+
+    <!-- <div class="search-result" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
         (scrolled)="onScroll()">
 
         <table class="table table-hover mt-3 shadow">
@@ -40,13 +83,13 @@
                         <a class="btn text-info pointer" (click)="editEmployee(emp)" data-toggle="modal"
                             data-dismiss="modal" matTooltip="Update Employee" data-target="#addEmpModal"><i
                                 class="fa fa-edit"></i></a>
-                        <a *ngIf="role==='admin'" class="btn text-danger pointer" (click)="deleteEmployee(emp)" matTooltip="Delete Employee"><i
-                                class="fa fa-trash"></i></a>
+                        <a *ngIf="role==='admin'" class="btn text-danger pointer" (click)="deleteEmployee(emp)"
+                            matTooltip="Delete Employee"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>
             </tbody>
         </table>
-    </div>
+    </div> -->
 
     <div class="row pb-5">
         <div class="col-md-12 p-5">
@@ -126,7 +169,9 @@
                                 <div *ngIf="formGroup.get('mobile').touched && formGroup.get('mobile').invalid"
                                     class="invalid-feedback">
                                     <p *ngIf="formGroup.get('mobile').errors.required">Field is required</p>
-                                    <p *ngIf="formGroup.get('mobile').invalid && !formGroup.get('mobile').errors.required">Invalid Mobile No.</p>
+                                    <p
+                                        *ngIf="formGroup.get('mobile').invalid && !formGroup.get('mobile').errors.required">
+                                        Invalid Mobile No.</p>
                                 </div>
                             </div>
                         </div>
@@ -156,7 +201,8 @@
                         </div>
                         <div class="col-sm-12 text-center">
                             <button type="submit" class="btn btn-info mr-2" [disabled]="!formGroup.valid || isDisabled"
-                                data-dismiss="modal" data-target="#addEmpModal" (click)="onSubmit()" >{{btnLabel}}</button>
+                                data-dismiss="modal" data-target="#addEmpModal"
+                                (click)="onSubmit()">{{btnLabel}}</button>
                             <button type="button" class="btn btn-info" data-dismiss="modal" #closeModal>Close</button>
                         </div>
                     </div>

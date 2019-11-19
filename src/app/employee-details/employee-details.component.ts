@@ -40,7 +40,7 @@ export class EmployeeDetailsComponent implements OnInit {
   }
 
   redirect(){
-    this.route.navigateByUrl("resume");
+    this.route.navigateByUrl("resume/"+this.id);
   }
 
 }

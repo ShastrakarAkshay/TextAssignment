@@ -6,7 +6,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
   providedIn: 'root'
 })
 export class EmployeeService {
-  
+
   constructor(private firestore: AngularFirestore, private db: AngularFireDatabase) { }
 
   getEmployeeData() {
@@ -26,7 +26,7 @@ export class EmployeeService {
     //     console.log(item.data())
     //   })
     // })  
-    
+
     return this.firestore.collection('EmployeeDB', ref => ref.orderBy('firstName', 'asc')).snapshotChanges();
 
   }
@@ -50,24 +50,40 @@ export class EmployeeService {
     return this.firestore.collection('EmployeeDB').doc(id).snapshotChanges();
   }
 
-  getUsers(){
+  getUsers() {
     const AdminId = 'YgENdKFolwTLII94HWeK';
     const PublicId = 'XQuNXevLlSKiTjfN8tp5';
 
     return this.firestore.collection("users").snapshotChanges();
   }
 
-  isLogin(){
-    if(localStorage.getItem('token')){
+  isLogin() {
+    if (localStorage.getItem('token')) {
       return true;
     }
-    else{
+    else {
       return false;
     }
   }
 
-  logout(){
+  logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
+  }
+
+  addProject(project: any) {
+    this.firestore.collection('Projects').add(project);
+  }
+
+  getProjects() {
+    return this.firestore.collection('Projects').snapshotChanges();
+  }
+
+  updateProject(projectData: any) {
+    this.firestore.doc('Projects/' + projectData.id).update(projectData);
+  }
+
+  deleteProject(projectId: string) {
+    this.firestore.doc('Projects/' + projectId).delete();
   }
 }

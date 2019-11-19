@@ -6,6 +6,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
 import { EmployeeResumeComponent } from './employee-resume/employee-resume.component';
 import { AuthGuard } from './guards/auth.guard';
+import { ProjectsComponent } from './projects/projects.component';
+import { AdminGuard } from './guards/admin.guard';
 
 
 const routes: Routes = [
@@ -24,13 +26,18 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'resume',
+    path: 'resume/:id',
     component: EmployeeResumeComponent,
     canActivate: [AuthGuard]
   },
   {
     path: "notfound",
     component: PageNotFoundComponent
+  },
+  {
+    path: "addProject",
+    component: ProjectsComponent,
+    canActivate: [AdminGuard]
   },
   {
     path: "**",

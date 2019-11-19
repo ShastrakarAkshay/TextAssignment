@@ -1,0 +1,116 @@
+<section>
+    <div class="row">
+        <div class="col-4">
+            <button class="btn btn-transperent" (click)="goBack()" matTooltip="Go Back" matTooltipPosition="left"><i
+                    class="fa fa-arrow-circle-o-left" style="font-size:30px"></i></button>
+        </div>
+        <div class="col-4 text-center">
+            <h4>Projects</h4>
+        </div>
+    </div>
+    <hr>
+
+    <div class="row justify-content-between">
+        <div class="col-6">
+            <button class="btn btn-info add-btn" data-toggle="modal" data-target="#addProjectModal"
+                (click)="addProject()">Add Project
+            </button>
+        </div>
+    </div>
+
+    <table class="table table-hover mt-3 shadow">
+        <thead class="bg-light">
+            <th>Project ID</th>
+            <th>Project Name</th>
+            <th>Description</th>
+            <th></th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let project of projects">
+                <td>{{project.projectId}}</td>
+                <td class="empNameLink pointer"><a>{{project.name}}</a>
+                </td>
+                <td>{{project.description}}</td>
+                <td class="text-center">
+                    <a class="btn text-info pointer" data-toggle="modal" data-dismiss="modal"
+                        (click)="editProject(project)" matTooltip="Update Project" data-target="#addProjectModal"><i
+                            class="fa fa-edit"></i></a>
+                    <a class="btn text-danger pointer" matTooltip="Delete Project"
+                        (click)="deleteProject(project.id)"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<div id="addProjectModal" class="modal fade" role="dialog" #empFormModal>
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Project</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formGroup">
+                    <div class="row" hidden>
+                        <input type="hidden" [(ngModel)]="projectId" [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="name">Project Name</label>
+                            <input type="text" class="form-control" placeholder="Enter Project Name"
+                                formControlName="name"
+                                [ngClass]="{'is-invalid': formGroup.get('name').touched && formGroup.get('name').invalid}">
+                            <div class="invalid-feedback">
+                                <p>Field is required</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="description">Project Description</label>
+                            <input type="text" class="form-control" placeholder="Enter Description"
+                                formControlName="description"
+                                [ngClass]="{'is-invalid': formGroup.get('description').touched && formGroup.get('description').invalid}">
+                            <div class="invalid-feedback">
+                                <p>Email is required</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="mobile">Required Technologies</label>
+                            <input type="text" class="form-control" placeholder="Enter Technologies"
+                                formControlName="technologies"
+                                [ngClass]="{'is-invalid': formGroup.get('technologies').touched && formGroup.get('technologies').invalid}">
+                            <div class="invalid-feedback">
+                                <p>Field is required</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="client">Client Name</label>
+                            <input type="text" class="form-control" placeholder="Enter Client Detail"
+                                formControlName="client">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="">Location</label>
+                            <input type="text" class="form-control" placeholder="Enter Location"
+                                formControlName="location"
+                                [ngClass]="{'is-invalid': formGroup.get('location').touched && formGroup.get('location').invalid}">
+                        </div>
+                    </div>
+                    <div class="col-sm-12 text-center">
+                        <button type="submit" class="btn btn-info mr-2" [disabled]="formGroup.invalid"
+                            (click)="onSubmit()" data-dismiss="modal">{{label}}</button>
+                        <button type="button" class="btn btn-info" data-dismiss="modal" #closeModal>Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

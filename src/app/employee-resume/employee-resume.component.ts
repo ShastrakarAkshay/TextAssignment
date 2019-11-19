@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { parseTemplate } from '@angular/compiler';
 
 @Component({
   selector: 'app-employee-resume',
@@ -7,12 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmployeeResumeComponent implements OnInit {
 
-  constructor() { }
+  id: string;
+
+  constructor(private routes: ActivatedRoute) {
+    this.routes.params.subscribe(param => {
+      this.id = param.id;
+    })
+  }
 
   ngOnInit() {
   }
 
-  goBack(){
+  goBack() {
     window.history.back();
   }
 

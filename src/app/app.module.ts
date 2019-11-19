@@ -22,6 +22,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { NavbarComponent, LoginDialog, LogoutDialog } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { MaterialModule } from './material.module';
+import { ProjectsComponent } from './projects/projects.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { MaterialModule } from './material.module';
     LoginDialog,
     LogoutDialog,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    ProjectsComponent
   ],
   imports: [
     BrowserModule,
