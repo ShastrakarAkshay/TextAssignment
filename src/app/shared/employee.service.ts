@@ -51,9 +51,6 @@ export class EmployeeService {
   }
 
   getUsers() {
-    const AdminId = 'YgENdKFolwTLII94HWeK';
-    const PublicId = 'XQuNXevLlSKiTjfN8tp5';
-
     return this.firestore.collection("users").snapshotChanges();
   }
 

@@ -74,6 +74,7 @@ export class LoginDialog implements OnInit {
   username: string = '';
   password: string = '';
   invalidLogin: boolean = false;
+  users: any = [];
 
   constructor(private empService: EmployeeService, private router: Router,
     public dialogRef: MatDialogRef<LoginDialog>,
@@ -85,7 +86,13 @@ export class LoginDialog implements OnInit {
     })
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.empService.getUsers().subscribe(data => {
+      data.forEach(user => {
+        this.users.push(user.payload.doc.data());
+      })
+    })
+   }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -96,24 +103,18 @@ export class LoginDialog implements OnInit {
     const user = this.loginForm.get('username').value;
     const pass = this.loginForm.get('password').value;
 
-    if ((user == 'Admin' && pass == 'Akshay@13.13') || (user == 'Public' && pass == '12345')) {
-      this.invalidLogin = false;
-
-      localStorage.setItem('token', 'true');
-
-      if (user == 'Admin') {
-        localStorage.setItem('role', 'admin');
+    this.users.forEach(usr => {
+      if(user == usr.username && pass == usr.password){
+        this.invalidLogin = false;
+        localStorage.setItem('token', 'true');
+        localStorage.setItem('role', usr.role);
+        this.empService.isLogin();
+        this.onNoClick();
+        this.router.navigateByUrl('/empList');
+      }else{
+        this.invalidLogin = true;
       }
-      else {
-        localStorage.setItem('role', 'public');
-      }
-
-      this.empService.isLogin();
-      this.onNoClick();
-      this.router.navigateByUrl('/empList');
-    } else {
-      this.invalidLogin = true;
-    }
+    })
   }
 }
 
