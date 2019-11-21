@@ -92,7 +92,10 @@ export class ProjectsComponent implements OnInit {
   }
 
   deleteProject(projectId: string){
-    this.empService.deleteProject(projectId);
-    this.toastr.info('Project Deleted');
+    let isDelete = confirm("Do You Want To Delete Project?");
+    if(isDelete){
+      this.empService.deleteProject(projectId);
+      this.toastr.info('Project Deleted');
+    }
   }
 }
