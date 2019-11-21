@@ -83,4 +83,10 @@ export class EmployeeService {
   deleteProject(projectId: string) {
     this.firestore.doc('Projects/' + projectId).delete();
   }
+
+  updateEmpWithProject(id:string, project: any){
+    this.firestore.collection('EmployeeDB').doc(id).update({
+      otherInfo: project
+    })
+  }
 }

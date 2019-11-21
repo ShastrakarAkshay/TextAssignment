@@ -9,7 +9,8 @@
         </div>
         <div class="col-4 text-right">
             <!-- <a (click)="redirect()" class="btn text-info pointer">Flip To Resume</a> -->
-            <button class="btn btn-transperent" (click)="redirect()" matTooltip="Flip To Resume" matTooltipPosition="left">
+            <button class="btn btn-transperent" (click)="redirect()" matTooltip="Flip To Resume"
+                matTooltipPosition="left">
                 <i class="fa fa-file" style="font-size:25px"></i></button>
         </div>
     </div>
@@ -18,35 +19,163 @@
         <div class="col-md-4 text-center">
             <img src="assets/images/user.png" class="img-thumbnail">
         </div>
-        <div class="col-md-7 details" style="line-height: 35px;">
+        <div class="col-md-7 details" style="line-height: 35px; padding-right:10px;">
             <div class="row">
-                <div class="col-5"><strong>Emp ID <span class="pull-right mr-3"> : </span></strong></div>
-                <div class="col-7">1000</div>
+                <div class="col-5"><strong>Emp ID <span class="pull-right mr-2"> : </span></strong></div>
+                <div class="col-7"><span>1000</span></div>
             </div>
             <div class="row">
-                <div class="col-5"><strong>Emp Name <span class="pull-right mr-3"> : </span></strong></div>
-                <div class="col-7">{{empData.firstName}} {{empData.lastName}}</div>
+                <div class="col-5"><strong>Emp Name <span class="pull-right mr-2"> : </span></strong></div>
+                <div class="col-7"><span>{{empData.firstName}} {{empData.lastName}}</span></div>
             </div>
             <div class="row">
-                <div class="col-5"><strong>Gender <span class="pull-right mr-3"> : </span></strong></div>
-                <div class="col-7">{{empData.gender}}</div>
+                <div class="col-5"><strong>Gender <span class="pull-right mr-2"> : </span></strong></div>
+                <div class="col-7"><span>{{empData.gender}}</span></div>
             </div>
             <div class="row">
-                <div class="col-5"><strong>Designation <span class="pull-right mr-3"> : </span></strong></div>
-                <div class="col-7">{{empData.designation}}</div>
+                <div class="col-5"><strong>Designation <span class="pull-right mr-2"> : </span></strong></div>
+                <div class="col-7"><span>{{empData.designation}}</span></div>
             </div>
             <div class="row">
-                <div class="col-5"><strong>Email <span class="pull-right mr-3"> : </span></strong></div>
-                <div class="col-7">{{empData.email}}</div>
+                <div class="col-5"><strong>Email <span class="pull-right mr-2"> : </span></strong></div>
+                <div class="col-7"><span>{{empData.email}}</span></div>
             </div>
             <div class="row">
-                <div class="col-5"><strong>Mobile <span class="pull-right mr-3"> : </span></strong></div>
-                <div class="col-7">{{empData.mobile}}</div>
+                <div class="col-5"><strong>Mobile <span class="pull-right mr-2"> : </span></strong></div>
+                <div class="col-7"><span>{{empData.mobile}}</span></div>
             </div>
             <div class="row">
-                <div class="col-5"><strong>Address <span class="pull-right mr-3"> : </span></strong></div>
-                <div class="col-7">{{empData.address}}</div>
+                <div class="col-5"><strong>Address <span class="pull-right mr-2"> : </span></strong></div>
+                <div class="col-7"><span>{{empData.address}}</span></div>
             </div>
         </div>
     </div>
+</section>
+
+<section class="mt-4 pb-5">
+    <h5 data-toggle="collapse" class="btn btn-info more-details" data-target="#demo">Add Other Details : </h5>
+    <div id="demo" class="collapse mt-3">
+        <mat-accordion class="example-headers-align">
+            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        About
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Describe yourself" [(ngModel)]="about">
+                </mat-form-field>
+
+                <mat-action-row>
+                    <button mat-button color="primary" (click)="nextStep()">Next</button>
+                </mat-action-row>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Projects
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <mat-form-field class="half-width">
+                    <input matInput placeholder="Project Name" [(ngModel)]="projectName">
+                </mat-form-field>
+
+                <mat-form-field class="half-width">
+                    <input matInput placeholder="Project Description" [(ngModel)]="projectDesc">
+                </mat-form-field>
+
+                <button mat-icon-button (click)="addProject()">
+                    <mat-icon matTooltip="Add" matTooltipPosition="right">add_box</mat-icon>
+                </button>
+
+                <table class="table mt-3">
+                    <tbody>
+                        <tr *ngFor="let project of projectsArr; let i = index">
+                            <td width="10%" class="text-left"><strong>{{i+1}}</strong></td>
+                            <!-- <td width="80%" class="text-left">
+                                <h6>{{project.projectName}}</h6>
+                                <p class="text-muted">{{project.projectDesc}}</p>
+                            </td> -->
+                            <td width="30%" class="text-left">
+                                <h6>{{project.projectName}}</h6>
+                            </td>
+                            <td width="50%">
+                                <p class="text-muted">{{project.projectDesc}}</p>
+                            </td>
+                            <td width="10%" class="text-center">
+                                <button mat-icon-button (click)="deleteProject(i)">
+                                    <mat-icon class="text-danger" matTooltip="Delete" matTooltipPosition="above">
+                                        highlight_off</mat-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <mat-action-row>
+                    <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                    <button mat-button color="primary" (click)="nextStep()">Next</button>
+                </mat-action-row>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Hobbies
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <mat-form-field class="half-width">
+                    <input matInput placeholder="Enter Hobbies" [(ngModel)]="hobbie">
+                </mat-form-field>
+
+                <button mat-icon-button (click)="addHobbie()">
+                    <mat-icon matTooltip="Add" matTooltipPosition="right">add_box</mat-icon>
+                </button>
+
+                <mat-nav-list>
+                    <mat-list-item *ngFor="let hobbie of hobbies; let i = index">
+                        <a matLine><strong>{{i+1}}.</strong> <span class="ml-2">{{hobbie}}</span></a>
+                        <button mat-icon-button (click)="deleteHobbie(i)">
+                            <mat-icon class="text-danger" matTooltip="Delete" matTooltipPosition="above">highlight_off
+                            </mat-icon>
+                        </button>
+                    </mat-list-item>
+                </mat-nav-list>
+
+                <mat-action-row>
+                    <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                    <button mat-button color="primary" (click)="nextStep()">Next</button>
+                </mat-action-row>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Notes
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Enter Notes" [(ngModel)]="notes">
+                </mat-form-field>
+
+                <mat-action-row>
+                    <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                    <button mat-button color="primary" (click)="nextStep()">End</button>
+                </mat-action-row>
+            </mat-expansion-panel>
+
+        </mat-accordion>
+
+        <div class="row text-center mt-3" style="display:flex; justify-content: center;">
+            <button class="btn btn-primary" (click)="addInformation()" data-toggle="collapse"
+                data-target="#demo">Update</button>
+        </div>
+    </div>
+
+
 </section>

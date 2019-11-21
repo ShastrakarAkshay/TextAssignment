@@ -10,6 +10,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule, MatInputModule, MatCardModule } from '@angular/material';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import {MatIconModule} from '@angular/material/icon';
 
 
 
@@ -28,7 +32,11 @@ import { MatFormFieldModule, MatInputModule, MatCardModule } from '@angular/mate
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatExpansionModule,
+    MatDividerModule,
+    MatListModule,
+    MatIconModule
   ],
   exports: [
     CommonModule,
@@ -43,7 +51,11 @@ import { MatFormFieldModule, MatInputModule, MatCardModule } from '@angular/mate
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatExpansionModule,
+    MatDividerModule,
+    MatListModule,
+    MatIconModule
   ]
 })
 export class MaterialModule { }

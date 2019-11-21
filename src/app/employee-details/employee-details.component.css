@@ -13,3 +13,37 @@ i:hover {
         padding-bottom: 40px;
     }
 }
+
+.col-7 {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.details .row {
+    padding-right: 30px !important;
+}
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+mat-form-field {
+  margin-right: 12px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.half-width {
+    width: 40%;
+}
+
+.tbody {
+    border: none;
+}
