@@ -1,12 +1,12 @@
 @media (min-width:768px)  {
     #contents {
-        color: #000000; font-family: 'Lato', sans-serif; font-size: 45px; font-weight: 300; line-height: 58px; margin: 0 0 58px;
+        color: #000000; font-family: 'Lato', sans-serif; font-size: 45px; font-weight: 300; line-height: 58px;
     }
 }
 
 @media (max-width:768px)  {
     #contents {
-        color: #000000; font-family: 'Lato', sans-serif; font-size: 18px; font-weight: 300; line-height: 58px; margin: 0 0 58px;
+        color: #000000; font-family: 'Lato', sans-serif; font-size: 18px; font-weight: 300; line-height: 58px;
     }
 }
 
