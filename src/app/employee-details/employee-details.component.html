@@ -52,8 +52,11 @@
     </div>
 </section>
 
-<section class="mt-4 pb-5">
-    <h5 data-toggle="collapse" class="btn btn-info more-details" data-target="#demo">Add Other Details : </h5>
+<section class="add-details pb-5">
+    <div class="text-center bg-dark text-white p-2" data-toggle="collapse" data-target="#demo"  matTooltip="Click To Add Details" matTooltipPosition="above">
+        <h6 class="more-details">Other Details : </h6>
+    </div>
+    <hr>
     <div id="demo" class="collapse mt-3">
         <mat-accordion class="example-headers-align">
             <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
